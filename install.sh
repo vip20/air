@@ -82,7 +82,7 @@ tag_to_version() {
     log_info "checking GitHub for tag '${TAG}'"
   fi
   REALTAG=$(github_release "$OWNER/$REPO" "${TAG}") && true
-  log_crit "REALTAG ====>>> ${REALTAG}"
+  log_crit "REALTAG ====>> ${REALTAG}"
   if test -z "$REALTAG"; then
     log_crit "unable to find '${TAG}' - use 'latest' or see https://github.com/${PREFIX}/releases for details"
     exit 1
@@ -284,6 +284,7 @@ github_release() {
   version=$2
   test -z "$version" && version="latest"
   giturl="https://github.com/${owner_repo}/releases/${version}"
+  log_crit "giturl ====>> ${giturl}"
   json=$(http_copy "$giturl" "Accept:application/json")
   test -z "$json" && return 1
   version=$(echo "$json" | tr -s '\n' ' ' | sed 's/.*"tag_name":"//' | sed 's/".*//')
