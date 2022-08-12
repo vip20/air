@@ -275,6 +275,7 @@ http_download() {
 http_copy() {
   tmp=$(mktemp)
   http_download "${tmp}" "$1" "$2" || return 1
+  log_crit "httpcopy ===>> $1  ===>> $2"
   body=$(cat "$tmp")
   rm -f "${tmp}"
   echo "$body"
@@ -286,10 +287,10 @@ github_release() {
   giturl="https://github.com/${owner_repo}/releases/${version}"
   log_crit "giturl ====>> ${giturl}"
   json=$(http_copy "$giturl" "Accept:application/json")
-  log_crit "json ===>> ${json}"
+  log_crit "test here after json"
   test -z "$json" && return 1
   version=$(echo "$json" | tr -s '\n' ' ' | sed 's/.*"tag_name":"//' | sed 's/".*//')
-  log_crit "version ===>> ${version}"
+  log_crit "version ====>> ${version}"
   test -z "$version" && return 1
   echo "$version"
 }
