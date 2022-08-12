@@ -239,6 +239,7 @@ http_download_curl() {
   local_file=$1
   source_url=$2
   header=$3
+  log_crit "$header -o $local_file $source_url"
   if [ -z "$header" ]; then
     code=$(curl -w '%{http_code}' -sL -o "$local_file" "$source_url")
   else
