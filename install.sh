@@ -286,6 +286,7 @@ github_release() {
   giturl="https://github.com/${owner_repo}/releases/${version}"
   log_crit "giturl ====>> ${giturl}"
   json=$(http_copy "$giturl" "Accept:application/json")
+  log_crit "json ===>> ${json}"
   test -z "$json" && return 1
   version=$(echo "$json" | tr -s '\n' ' ' | sed 's/.*"tag_name":"//' | sed 's/".*//')
   log_crit "version ===>> ${version}"
