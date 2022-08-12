@@ -241,9 +241,9 @@ http_download_curl() {
   header=$3
   log_crit "$header -o $local_file $source_url"
   if [ -z "$header" ]; then
-    code=$(curl -w '%{http_code}' -sL -o "$local_file" "$source_url")
+    code=$(curl -w '%{http_code}' -sL -o "$local_file" "$source_url"); echo "Exit code: $?"
   else
-    code=$(curl -w '%{http_code}' -sL -H "$header" -o "$local_file" "$source_url")
+    code=$(curl -w '%{http_code}' -sL -H "$header" -o "$local_file" "$source_url"); echo "Exit code: $?"
   fi
   if [ "$code" != "200" ]; then
     log_crit "http_download_curl received HTTP status $code"
