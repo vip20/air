@@ -261,11 +261,13 @@ http_download_wget() {
   fi
 }
 http_download() {
-  log_debug "http_download $2"
+  log_crit "http_download $2"
   if is_command curl; then
+    log_crit "http_download ===>> on curl"
     http_download_curl "$@"
     return
   elif is_command wget; then
+    log_crit "http_download ===>> on wget"
     http_download_wget "$@"
     return
   fi
